@@ -124,6 +124,15 @@
       cursor: pointer;
       margin-top: 1rem;
     }
+    @keyframes flicker {
+  0%   { opacity: 1; }
+  45%  { opacity: 0.9; }
+  50%  { opacity: 0.4; }
+  55%  { opacity: 0.9; }
+  60%  { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
   </style>
 </head>
 <body>
@@ -135,14 +144,32 @@
     Contract: 3tPUc3SCLrb2D1ZzAttH44WNqwvwtUrkfUkeBUAVRPoo
   </div>
 
-  <div class="section">
-    <p>You’ve just entered Stewie’s secret lair. 💥<br>
-      Strap in for memes, madness, and moon missions.<br>
-      No weak hands. No babysitting. Just $STEWIE. 🍼🚀<br>
-      Let’s take over Solana—one diaper at a time.
-    </p>
-    <button id="game-button">Fly Stewie to the moon!🌙🚀</button>
-  </div>
+ <div class="section">
+  <p style="font-size: 1.2rem; font-weight: bold;">
+    You’ve just entered Stewie’s secret lair. 💥<br>
+    Strap in for memes, madness, and moon missions.<br>
+    No weak hands. No babysitting. Just $STEWIE. 🍼🚀<br>
+    Let’s take over Solana—one diaper at a time.
+  </p>
+
+  <button id="game-button" style="
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: yellow;
+    color: #000;
+    padding: 1.2rem 2rem;
+    border: none;
+    border-radius: 12px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    animation: flicker 1.5s infinite alternate;
+    box-shadow: 0 0 10px #ff0, 0 0 20px #ff0, 0 0 30px #f90;
+    cursor: pointer;
+  ">
+    PLAY OUR STEWIE GAME
+  </button>
+</div>
+
 
   <div id="game-container" class="section">
   <iframe src="GAME/index.html" width="320" height="512" style="border:none; border-radius: 12px; box-shadow: 0 0 20px rgba(255,255,255,0.1);"></iframe>
