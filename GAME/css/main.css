@@ -300,8 +300,8 @@ Screen - Game
    background-size: contain;
    background-repeat: no-repeat;
 
-   -webkit-animation: animBird 300ms steps(4) infinite;
-   animation: animBird 300ms steps(4) infinite;
+   animation: none;
+   -webkit-animation: none;
 }
 
 .pipe
