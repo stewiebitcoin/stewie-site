@@ -10,6 +10,9 @@
       margin: 0;
       padding: 0;
       background-color: #000;
+      background-image: radial-gradient(white 1px, transparent 1px), radial-gradient(white 1px, transparent 1px);
+      background-position: 0 0, 25px 25px;
+      background-size: 50px 50px;
       color: #fff;
       font-family: 'Orbitron', sans-serif;
       display: flex;
@@ -19,6 +22,7 @@
       min-height: 100vh;
       text-align: center;
       overflow-x: hidden;
+      cursor: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Emojione_1F680.svg/48px-Emojione_1F680.svg.png'), auto;
     }
 
     h1 {
@@ -69,6 +73,14 @@
       max-width: 100%;
       height: auto;
     }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
   </style>
 </head>
 <body>
@@ -85,11 +97,18 @@
   </div>
 
   <div class="section">
-<img src="stewie-promo.jpeg" alt="Stewie Token Promo">
+    <img src="stewie-promo.jpeg" alt="Stewie Token Promo">
   </div>
 
   <div class="section">
-<img src="diamond-diaper.jpeg" alt="Diamond Diaper Holders Award">
+    <video autoplay muted loop playsinline width="100%" style="max-width: 600px; border-radius: 12px; margin-top: 2rem;">
+      <source src="stewie-intro.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="section">
+    <img src="IMG_6247.jpeg" alt="Diamond Diaper Holders Award">
   </div>
 
   <div class="footer">
@@ -98,34 +117,59 @@
     <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram (Coming Soon)"></a>
   </div>
 
+  <canvas id="confetti-canvas"></canvas>
+
   <script>
     const launchDate = new Date('May 12, 2025 00:21:00 GMT-0400').getTime();
     const countdownEl = document.getElementById('countdown');
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    const updateCountdown = () => {
+    function showConfetti() {
+      const emojis = ['💸', '🪙', '🚀'];
+      const particles = Array.from({ length: 100 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * -canvas.height,
+        size: 24,
+        emoji: emojis[Math.floor(Math.random() * emojis.length)],
+        speed: Math.random() * 3 + 2,
+      }));
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          ctx.font = `${p.size}px sans-serif`;
+          ctx.fillText(p.emoji, p.x, p.y);
+          p.y += p.speed;
+          if (p.y > canvas.height) {
+            p.y = -20;
+            p.x = Math.random() * canvas.width;
+          }
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    function updateCountdown() {
       const now = new Date().getTime();
       const timeLeft = launchDate - now;
 
-      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-      countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-      if (timeLeft < 0) {
-        countdownEl.innerHTML = 'Launch Time!';
+      if (timeLeft <= 0) {
+        countdownEl.innerHTML = 'LAUNCH TIME BITCHES!';
+        showConfetti();
+        return;
       }
-    };
 
-    setInterval(updateCountdown, 1000);
+      const totalSeconds = Math.floor(timeLeft / 1000);
+      const display = `${totalSeconds}s`;
+      countdownEl.innerHTML = display;
+      setTimeout(updateCountdown, 1000);
+    }
+
+    updateCountdown();
   </script>
 </body>
-  <div class="section">
-  <video autoplay muted loop playsinline width="100%" style="max-width: 600px; border-radius: 12px; margin-top: 2rem;">
-    <source src="images/stewie-intro.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
-
 </html>
