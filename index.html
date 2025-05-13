@@ -91,22 +91,38 @@
 
     .contract {
       background: #111;
-      padding: 1rem 2rem;
+      padding: 1rem;
       border: 2px solid #0ff;
       font-size: 1.2rem;
       font-weight: bold;
       color: #0ff;
       border-radius: 10px;
-      margin: 2rem auto;
-      user-select: all;
+      max-width: 600px;
+      word-wrap: break-word;
     }
 
-    canvas {
+    canvas#confetti-canvas {
       position: fixed;
       top: 0;
       left: 0;
       pointer-events: none;
       z-index: 9999;
+    }
+
+    #game-container {
+      display: none;
+      margin-top: 2rem;
+    }
+
+    #game-button {
+      background-color: red;
+      color: white;
+      font-size: 1.2rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 1rem;
     }
   </style>
 </head>
@@ -125,6 +141,11 @@
       No weak hands. No babysitting. Just $STEWIE. 🍼🚀<br>
       Let’s take over Solana—one diaper at a time.
     </p>
+    <button id="game-button">Fly Stewie to the moon!🌙🚀</button>
+  </div>
+
+  <div id="game-container" class="section">
+    <iframe src="https://flappybird.io/" width="320" height="512" style="border:none;"></iframe>
   </div>
 
   <div class="section">
@@ -163,6 +184,8 @@
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    let confettiRunning = false;
+    let confettiFrame;
 
     function showConfetti() {
       const emojis = ['💸', '🪙', '🚀'];
@@ -187,9 +210,16 @@
             p.x = Math.random() * canvas.width;
           }
         });
-        requestAnimationFrame(draw);
+        confettiFrame = requestAnimationFrame(draw);
       }
+      confettiRunning = true;
       draw();
+    }
+
+    function stopConfetti() {
+      cancelAnimationFrame(confettiFrame);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confettiRunning = false;
     }
 
     function updateCountdown() {
@@ -203,12 +233,16 @@
       }
 
       const totalSeconds = Math.floor(timeLeft / 1000);
-      const display = `${totalSeconds}s`;
-      countdownEl.innerHTML = display;
+      countdownEl.innerHTML = `${totalSeconds}s`;
       setTimeout(updateCountdown, 1000);
     }
 
     updateCountdown();
+
+    document.getElementById('game-button').addEventListener('click', () => {
+      document.getElementById('game-container').style.display = 'block';
+      if (confettiRunning) stopConfetti();
+    });
   </script>
 </body>
 </html>
