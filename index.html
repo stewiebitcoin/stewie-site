@@ -89,6 +89,18 @@
       border-radius: 12px;
     }
 
+    .contract {
+      background: #111;
+      padding: 1rem 2rem;
+      border: 2px solid #0ff;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #0ff;
+      border-radius: 10px;
+      margin-top: 2rem;
+      user-select: all;
+    }
+
     canvas {
       position: fixed;
       top: 0;
@@ -132,6 +144,10 @@
     <img src="stewie3.gif" alt="Stewie GIF 3">
   </div>
 
+  <div class="section contract">
+    Contract: 3tPUc3SCLrb2D1ZzAttH44WNqwvwtUrkfUkeBUAVRPoo
+  </div>
+
   <div class="footer">
     <a href="https://t.me/+RNF6IqAhbqhhNGJk" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
     <a href="https://x.com/StewieBitcoin?t=9hB01Oz0CLf5V87isQZ0Fg&s=09" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/X_logo.jpg" alt="X"></a>
@@ -155,12 +171,14 @@
         y: Math.random() * -canvas.height,
         size: 24,
         emoji: emojis[Math.floor(Math.random() * emojis.length)],
-        speed: Math.random() * 3 + 2,
+        speed: Math.random() * 1.5 + 1,
+        opacity: 0.5
       }));
 
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach(p => {
+          ctx.globalAlpha = p.opacity;
           ctx.font = `${p.size}px sans-serif`;
           ctx.fillText(p.emoji, p.x, p.y);
           p.y += p.speed;
