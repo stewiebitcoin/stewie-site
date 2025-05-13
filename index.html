@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to $STEWIE</title>
+  <link rel="icon" type="image/png" href="stewie-favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -69,9 +70,23 @@
       padding: 1rem;
     }
 
-    .section img {
+    .section img, .gif-row img {
       max-width: 100%;
       height: auto;
+    }
+
+    .gif-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .gif-row img {
+      max-width: 400px;
+      max-height: 400px;
+      border-radius: 12px;
     }
 
     canvas {
@@ -109,6 +124,12 @@
 
   <div class="section">
     <img src="IMG_6247.jpeg" alt="Diamond Diaper Holders Award">
+  </div>
+
+  <div class="gif-row">
+    <img src="stewie.gif" alt="Stewie GIF 1">
+    <img src="stewie2.gif" alt="Stewie GIF 2">
+    <img src="stewie3.gif" alt="Stewie GIF 3">
   </div>
 
   <div class="footer">
